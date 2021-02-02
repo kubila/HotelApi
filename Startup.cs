@@ -28,6 +28,17 @@ namespace HotelApi
         {
 
             services.AddControllers();
+
+            // configure cross origin resource sharing
+            services.AddCors(crs =>
+            {
+                crs.AddPolicy("AllGranted", builder => {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelApi", Version = "v1" });
@@ -45,6 +56,9 @@ namespace HotelApi
             }
 
             app.UseHttpsRedirection();
+
+            // enable cors policy
+            app.UseCors("AllGranted");
 
             app.UseRouting();
 
