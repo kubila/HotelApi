@@ -13,5 +13,6 @@ namespace HotelApi.Data
 
         }
 
+        public DbSet<Hotel> Hotels { get; set; }
     }
 }
