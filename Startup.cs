@@ -28,9 +28,7 @@ namespace HotelApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-
+            
             services.AddDbContext<ApplicationDbContext>(c =>
             {
                 c.UseSqlServer(Configuration.GetConnectionString("Default"));
@@ -50,6 +48,9 @@ namespace HotelApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelApi", Version = "v1" });
             });
+
+            services.AddControllers();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
