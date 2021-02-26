@@ -18,14 +18,15 @@ namespace HotelApi.IRepository
             _context = context;
             _db = _context.Set<T>();
         }
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _db.FindAsync(id);
+            _db.Remove(entity);
         }
 
         public void DeleteRange(IEnumerable<T> items)
         {
-            throw new NotImplementedException();
+            _db.RemoveRange(items);
         }
 
         public Task<T> Get(Expression<Func<T, bool>> expression, List<string> includes = null)
@@ -38,19 +39,19 @@ namespace HotelApi.IRepository
             throw new NotImplementedException();
         }
 
-        public Task Insert(T item)
+        public async Task Insert(T item)
         {
-            throw new NotImplementedException();
+            await _db.AddAsync(item);
         }
 
-        public Task InsertRange(IEnumerable<T> items)
+        public async Task InsertRange(IEnumerable<T> items)
         {
-            throw new NotImplementedException();
+            await _db.AddRangeAsync(items);
         }
 
         public void Update(T item)
         {
-            throw new NotImplementedException();
+            _db.Attach(item);
         }
     }
 }
