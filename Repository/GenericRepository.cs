@@ -67,8 +67,6 @@ namespace HotelApi.IRepository
             }
 
             return await _query.AsNoTracking().ToListAsync();
-
-            
         }
 
         public async Task Insert(T item)
@@ -83,7 +81,10 @@ namespace HotelApi.IRepository
 
         public void Update(T item)
         {
+            // start tracking the entity
             _db.Attach(item);
+            // modify entity state
+            _context.Entry(item).State = EntityState.Modified;
         }
     }
 }
