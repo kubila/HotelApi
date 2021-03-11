@@ -37,16 +37,38 @@ namespace HotelApi.IRepository
             {
                 foreach(var item in includes)
                 {
-                    query = _db.Include(item);
+                    query = query.Include(item);
                 }
             }
 
-            return await _db.AsNoTracking().FirstOrDefaultAsync(expression);
+            return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 
         public async Task<IList<T>> GetAll(Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<string> includes = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> _query = _db;
+
+            if( expression != null )
+            {
+                _query = _query.Where(expression);
+            }
+
+            if ( orderBy != null )
+            {
+                _query = orderBy(_query);
+            }
+
+            if ( includes != null )
+            {
+                foreach ( var item in includes )
+                {
+                    _query = _query.Include(item);
+                }
+            }
+
+            return await _query.AsNoTracking().ToListAsync();
+
+            
         }
 
         public async Task Insert(T item)
