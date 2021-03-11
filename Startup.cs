@@ -1,4 +1,6 @@
 using HotelApi.Data;
+using HotelApi.IRepository;
+using HotelApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +45,8 @@ namespace HotelApi
                     .AllowAnyHeader();
                 });
             });
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddSwaggerGen(c =>
             {
