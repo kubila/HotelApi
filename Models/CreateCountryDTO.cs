@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace HotelApi.Models
 {
-    public class CountryDTO
+    public class CreateCountryDTO
     {
+
         public int Id { get; set; }
 
         [Required]
@@ -17,8 +18,5 @@ namespace HotelApi.Models
         [Required]
         [StringLength(maximumLength: 2, ErrorMessage = "Country short name is too long!")]
         public string ShortName { get; set; }
-  
     }
-
-   
 }
